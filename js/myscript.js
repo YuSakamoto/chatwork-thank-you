@@ -40,10 +40,16 @@ function addThankYou() {
   $("ul._messageActionNav").not(".thankYou").prepend(THANK_YOU_DOM);
   $(".thankYou").click(function(){
     $(this).next().click();
-    $("#_chatText").val($("#_chatText").val() + settings.statements[statementIndex] + settings.suffixes[suffixIndex]);
+    var statements = settings.statements[statementIndex].split('/');
+    var selectedStatement = statements[Math.floor(Math.random() * statements.length)];
+
+    var suffixes = settings.suffixes[suffixIndex].split('/');
+    var selectedSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+
+    $("#_chatText").val($("#_chatText").val() + selectedStatement + selectedSuffix);
     $("#_sendButton").click();
   });
-  $(".thankYou span:last-child").text(settings.statements[statementIndex] + settings.suffixes[suffixIndex]);
+  $(".thankYou span:last-child").text(settings.statements[statementIndex].split('/')[0] + settings.suffixes[suffixIndex].split('/')[0]);
 }
 
 

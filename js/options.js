@@ -25,10 +25,14 @@ function save_options() {
 	model.keyCodes.suffix = $('#suffix-key-code').val();
 
 	$(".statement").each(function(i, input) {
-		model.statements.push($(input).val());
+		if ($(input).val() != '') {
+			model.statements.push($(input).val());
+		}
 	});
 	$(".suffix").each(function(i, input) {
-		model.suffixes.push($(input).val());
+		if ($(input).val() != '') {
+			model.suffixes.push($(input).val());
+		}
 	});
 	chrome.storage.sync.set({
 		"model": model
@@ -56,10 +60,10 @@ function restore_options() {
  		$('#statement-key-code').val(model.model.keyCodes.statement);
  		$('#suffix-key-code').val(model.model.keyCodes.suffix);
  		$.each(model.model.statements, function(i, value) {
- 			$(".add-statement").before('<input type="text" class="statement form-control" style="margin-bottom:5px;" value="' + value + '" /><br />')
+ 			$(".add-statement").parent().before('<input type="text" class="statement form-control" style="margin-bottom:5px;" value="' + value + '" /><hr />')
  		});
  		$.each(model.model.suffixes, function(i, value) {
- 			$(".add-suffix").before('<input type="text" class="suffix form-control" style="margin-bottom:5px;" value="' + value + '" /><br />')
+ 			$(".add-suffix").parent().before('<input type="text" class="suffix form-control" style="margin-bottom:5px;" value="' + value + '" /><hr />')
  		});
 	});
 }
@@ -71,9 +75,10 @@ $(".save").click(function(){
 
 
 $(".add-statement").click(function(){
-	$(this).parent().before('<input type="text" class="statement form-control" style="margin-bottom:5px;" /><br />');
+	$(this).parent().before('<input type="text" class="statement form-control" style="margin-bottom:5px;" /><hr />');
+
 });
 
 $(".add-suffix").click(function(){
-	$(this).parent().before('<input type="text" class="suffix form-control" style="margin-bottom:5px;" /><br />');
+	$(this).parent().before('<input type="text" class="suffix form-control" style="margin-bottom:5px;" /><hr />');
 });
